@@ -33,9 +33,9 @@ def parse_plist():
 	failed_testcases = pl['TestsFailedCount']
 	passed_testcases = total_testcases - failed_testcases
 
-	failure_summaries = pl['TestFailureSummaries']
 	data_attachments = []
 
+	failure_summaries = pl.get('TestFailureSummaries', '')
 	for test in failure_summaries:
 		attachment = {}
 		testcase = test['TestCase']
