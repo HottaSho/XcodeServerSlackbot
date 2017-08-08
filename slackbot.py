@@ -1,4 +1,4 @@
-mport os, zipfile, plistlib, json, requests, time, re
+import os, zipfile, plistlib, json, requests, time, re
 
 def change_directory():
 	# environment variables and paths
