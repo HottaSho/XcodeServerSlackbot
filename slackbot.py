@@ -59,7 +59,7 @@ def parse_plist():
 			devices_str += ', %s' % device if len(devices_str) else device		
 
 	data_text = (
-			'Test Setup: %s.\nDevices: %s.\nTestcases: Passed: %s, Failed: %s' % 
+			'Test Setup: %s | %s.\nTestcases: Passed: %s, Failed: %s' % 
 			(
 				str(os.environ.get('XCS_PRIMARY_REPO_BRANCH')),
 				devices_str,
