@@ -25,6 +25,8 @@ def change_directory():
 	os.chdir('%s/xcodebuild_result.bundle' % output_directory)
 
 def remove_directory():
+	integration = os.environ.get('XCS_INTEGRATION_NUMBER')
+	
 	os.chdir('../..')
 	shutil.rmtree(integration)
 
