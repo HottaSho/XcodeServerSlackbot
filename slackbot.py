@@ -1,11 +1,11 @@
-import os, zipfile, plistlib, json, requests, time, re
+import os, zipfile, plistlib, json, requests, time, re, shutil
 
 def change_directory():
 	# environment variables and paths
 	home = os.environ.get('HOME')
 	bot_name = os.environ.get('XCS_BOT_NAME').split()[0]
 	integration = os.environ.get('XCS_INTEGRATION_NUMBER')
-	output_directory = '%s/%s/%s' % (home, os.environ.get('OUTPUT_PATH'), integration)
+	output_directory = '%s/Downloads/%s' % (home, integration)
 	path = '/Library/Developer/XcodeServer/IntegrationAssets/'
 
 	os.chdir(path)
@@ -24,7 +24,13 @@ def change_directory():
 
 	os.chdir('%s/xcodebuild_result.bundle' % output_directory)
 
+def remove_directory():
+	os.chdir('../..')
+	shutil.rmtree(integration)
+
 def parse_plist():
+	change_directory()
+
 	data = {}
 	pl = plistlib.readPlist('Info.plist')
 
@@ -73,12 +79,13 @@ def parse_plist():
 	data['text'] = data_text
 	data['attachments'] = data_attachments
 
+	remove_directory()
+
 	return data
 
 if __name__ == "__main__":
 	print('Starting bot...')
 	slack_url = os.environ.get('SLACK_WEBHOOK_URL')
-	change_directory()
 	slack_data = parse_plist()
 	print('Posting')
 
